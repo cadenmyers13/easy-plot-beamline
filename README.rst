@@ -50,23 +50,7 @@ If you use easy-plot-beamline in a scientific publication, we would like you to 
 Installation
 ------------
 
-The preferred method is to use `Miniconda Python
-<https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html>`_
-and install from the "conda-forge" channel of Conda packages.
-
-To add "conda-forge" to the conda channels, run the following in a terminal. ::
-
-        conda config --add channels conda-forge
-
-We want to install our packages in a suitable conda environment.
-The following creates and activates a new environment named ``easy-plot-beamline_env`` ::
-
-        conda create -n easy-plot-beamline_env easy-plot-beamline
-        conda activate easy-plot-beamline_env
-
-The output should print the latest version displayed on the badges above.
-
-If the above does not work, you can use ``pip`` to download and install the latest release from
+Use ``pip`` to download and install the latest release from
 `Python Package Index <https://pypi.python.org>`_.
 To install using ``pip`` into your ``easy-plot-beamline_env`` environment, type ::
 

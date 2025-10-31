@@ -1,0 +1,18 @@
+{
+  "maintainer_name": "Caden Myers",
+  "maintainer_email": "cjm2304@columbia.edu",
+  "maintainer_github_username": "cadenmyers13",
+  "contributors": "Caden Myers",
+  "license_holders": "The Trustees of Columbia University in the City of New York",
+  "project_name": "easy-plot-beamline",
+  "github_username_or_orgname": "cadenmyers13",
+  "github_repo_name": "easy-plot-beamline",
+  "conda_pypi_package_dist_name": "easy-plot-beamline",
+  "package_dir_name": "easy_plot_beamline",
+  "project_short_description": "Easily plot and visualize two-column data on-the-fly.",
+  "project_keywords": "diffraction, PDF, X-ray, neutron",
+  "minimum_supported_python_version": "3.11",
+  "maximum_supported_python_version": "3.13",
+  "project_needs_c_code_compiled": "No",
+  "project_has_gui_tests": "No"
+}

@@ -1,12 +1,13 @@
 import argparse
 from pathlib import Path
-from easy_plot_beamline.version import __version__  # noqa
+
 from easy_plot_beamline.plotting import (
+    plot_diff,
+    plot_diff_matrix,
     plot_overlaid,
     plot_waterfall,
-    plot_diff_matrix,
-    plot_diff,
 )
+from easy_plot_beamline.version import __version__  # noqa
 
 
 def main():

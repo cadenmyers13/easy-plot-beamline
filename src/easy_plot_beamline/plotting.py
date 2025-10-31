@@ -1,8 +1,11 @@
 from __future__ import annotations
+
 import re
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 def _load_data(filepath: Path):
     filepath = Path(filepath)
@@ -24,12 +27,22 @@ def _load_data(filepath: Path):
             except ValueError:
                 continue
     if label_line is None or data_start is None:
-        raise ValueError(f"{filepath}: could not find #L labels or numeric data")
+        raise ValueError(
+            f"{filepath}: could not find #L labels or numeric data"
+        )
     parts = re.split(r"[,\s]+", label_line)
     xlabel = parts[0] if len(parts) >= 1 else "X"
     ylabel = parts[1] if len(parts) >= 2 else "Y"
-    xlabel = xlabel.replace("($\\AA$)", "(Å)").replace("($\\AA^{-1}$)", "(Å⁻¹)").replace("($\\AA^{-2}$)", "(Å⁻²)")
-    ylabel = ylabel.replace("($\\AA$)", "(Å)").replace("($\\AA^{-1}$)", "(Å⁻¹)").replace("($\\AA^{-2}$)", "(Å⁻²)")
+    xlabel = (
+        xlabel.replace("($\\AA$)", "(Å)")
+        .replace("($\\AA^{-1}$)", "(Å⁻¹)")
+        .replace("($\\AA^{-2}$)", "(Å⁻²)")
+    )
+    ylabel = (
+        ylabel.replace("($\\AA$)", "(Å)")
+        .replace("($\\AA^{-1}$)", "(Å⁻¹)")
+        .replace("($\\AA^{-2}$)", "(Å⁻²)")
+    )
     try:
         data = np.loadtxt(lines[data_start:])
     except Exception as e:
@@ -38,12 +51,14 @@ def _load_data(filepath: Path):
         raise ValueError(f"{filepath}: expected at least two numeric columns")
     return data[:, 0], data[:, 1], xlabel, ylabel
 
+
 def _parse_labels(line: str | None):
     if not line:
         return "X", "Y"
     parts = re.split(r"[,\s]+", line.strip())
     if len(parts) < 2:
         return "X", "Y"
+
     def _clean(lbl: str) -> str:
         lbl = (
             lbl.replace("($\\AA$)", "(Å)")
@@ -52,12 +67,15 @@ def _parse_labels(line: str | None):
             .replace("($\\AA^{-3}$)", "(Å⁻³)")
         )
         return lbl.strip()
+
     return _clean(parts[0]), _clean(parts[1])
+
 
 def _configure_plot(xlabel: str, ylabel: str):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.grid(True, ls="--", alpha=0.6)
+
 
 def _show_legend_right():
     plt.legend(
@@ -67,6 +85,7 @@ def _show_legend_right():
         frameon=False,
     )
     plt.tight_layout(rect=[0, 0, 0.8, 1])
+
 
 def plot_overlaid(files: list[Path]):
     plt.figure(figsize=(7, 4))
@@ -82,6 +101,7 @@ def plot_overlaid(files: list[Path]):
     _show_legend_right()
     plt.show()
 
+
 def plot_waterfall(files: list[Path], yspace: float = 1.0):
     plt.figure(figsize=(7, 4))
     xlabel, ylabel = "X", "Y"
@@ -96,6 +116,7 @@ def plot_waterfall(files: list[Path], yspace: float = 1.0):
     _show_legend_right()
     plt.show()
 
+
 def plot_diff_matrix(files: list[Path], yspace: float = 1.0):
     plt.figure(figsize=(7, 4))
     xlabel, ylabel = "X", "Y"
@@ -108,7 +129,12 @@ def plot_diff_matrix(files: list[Path], yspace: float = 1.0):
                 if not np.allclose(x1, x2):
                     y2 = np.interp(x1, x2, y2)
                 diff = y1 - y2
-                plt.plot(x1, diff + offset, label=f"{files[i].name} - {files[j].name}", lw=1.3)
+                plt.plot(
+                    x1,
+                    diff + offset,
+                    label=f"{files[i].name} - {files[j].name}",
+                    lw=1.3,
+                )
                 plt.axhline(offset, color="black", linewidth=0.8)
                 offset += yspace
             except Exception as e:
@@ -117,6 +143,7 @@ def plot_diff_matrix(files: list[Path], yspace: float = 1.0):
     _configure_plot(xlabel, f"Δ{ylabel}")
     _show_legend_right()
     plt.show()
+
 
 def plot_diff(files: list[Path]):
     if len(files) != 2:

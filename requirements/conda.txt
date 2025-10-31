@@ -1,1 +1,3 @@
 numpy
+matplotlib
+bg_mpl_stylesheets

@@ -91,12 +91,30 @@ You can also type the following command to verify the installation. ::
 
 To view the basic usage and available commands, type ::
 
-        easy-plot-beamline -h
+        easyplot -h
 
 Getting Started
 ---------------
 
-You may consult our `online documentation <https://cadenmyers13.github.io/easy-plot-beamline>`_ for tutorials and API references.
+Once installed, you can use the ``easyplot`` CLI:
+
+.. code-block:: bash
+
+        # Overlay multiple files
+        easyplot file1.gr file2.gr
+
+        # Waterfall plot with spacing
+        easyplot data/ --waterfall --yspace=2
+
+        # Pairwise difference matrix
+        easyplot data/ --diffmatrix --yspace=1.5
+
+        # Direct difference between two files
+        easyplot file1.gr file2.gr --diff
+
+        # Get help
+        easyplot -h
+
 
 Support and Contribute
 ----------------------

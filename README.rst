@@ -38,8 +38,6 @@
 
 Easily plot and visualize two-column data on-the-fly.
 
-* LONGER DESCRIPTION HERE
-
 For more information about the easy-plot-beamline library, please consult our `online documentation <https://cadenmyers13.github.io/easy-plot-beamline>`_.
 
 Citation

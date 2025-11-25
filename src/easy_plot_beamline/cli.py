@@ -1,6 +1,8 @@
 import argparse
 from pathlib import Path
 
+import numpy as np
+
 from easy_plot_beamline.plotting import (
     plot_diff,
     plot_diff_matrix,
@@ -10,26 +12,67 @@ from easy_plot_beamline.plotting import (
 from easy_plot_beamline.version import __version__  # noqa
 
 
+# ---------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------
+def load_first_two_columns_or_skip(path: Path):
+    """Try loading the first two numeric columns from a file.
+
+    Return (x, y) arrays or None if the file cannot be parsed as numeric
+    data.
+    """
+    try:
+        data = np.loadtxt(path, usecols=(0, 1))
+    except Exception:
+        print(f"[warning] Skipping non-numeric or incompatible file: {path}")
+        return None
+
+    if data.ndim == 1:
+        if data.size == 2:
+            return data[0], data[1]
+        else:
+            return None
+
+    return data[:, 0], data[:, 1]
+
+
+def collect_valid_files(paths):
+    """Expand directories, accept any file extension, and return only
+    files that contain valid 2-column numeric data."""
+    valid_files = []
+
+    for p in map(Path, paths):
+        if p.is_dir():
+            for fpath in sorted(p.iterdir()):
+                if fpath.is_file():
+                    if load_first_two_columns_or_skip(fpath) is not None:
+                        valid_files.append(fpath)
+
+        elif p.exists() and p.is_file():
+            if load_first_two_columns_or_skip(p) is not None:
+                valid_files.append(p)
+
+        else:
+            print(f"[warning] Skipping missing file: {p}")
+
+    return valid_files
+
+
+# ---------------------------------------------------------
+# Main
+# ---------------------------------------------------------
 def main():
     parser = argparse.ArgumentParser(
         prog="easyplot",
-        description=(
-            "Easily plot and visualize two-column xPDFsuite or text data.\n\n"
-            "Examples:\n"
-            "  easyplot file1.gr file2.gr\n"
-            "  easyplot data/ --waterfall --yspace=2\n"
-            "  easyplot data/ --diffmatrix\n"
-            "  easyplot file1.gr file2.gr --diff\n"
-            "For more information, visit:\n"
-            "https://github.com/cadenmyers13/easy-plot-beamline/"
-        ),
+        description="Easily plot and visualize two-column "
+        "xPDFsuite or text data.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     parser.add_argument(
         "files",
         nargs="+",
-        help="Input text or .gr files, or directories containing them.",
+        help="Input files or directories containing them (any extension).",
     )
     parser.add_argument(
         "--version",
@@ -44,7 +87,7 @@ def main():
     parser.add_argument(
         "--diffmatrix",
         action="store_true",
-        help="Plot pairwise differences between curves (ignores inverses).",
+        help="Plot pairwise differences between curves.",
     )
     parser.add_argument(
         "--diff",
@@ -52,10 +95,16 @@ def main():
         help="Plot the direct difference between two curves.",
     )
     parser.add_argument(
+        "--legend-right",
+        action="store_true",
+        help="Show legend on the right side.",
+    )
+    parser.add_argument(
         "--yspace",
         type=float,
         default=1.0,
-        help="Vertical spacing between curves for waterfall or diffmatrix plots. Use like --yspace=2",
+        help="Vertical spacing between curves for waterfall "
+        "or diffmatrix plots.",
     )
 
     args = parser.parse_args()
@@ -65,34 +114,31 @@ def main():
         print(f"easy-plot-beamline {__version__}")
         return
 
-    # === Collect all input files ===
-    input_files = []
-    for f in args.files:
-        p = Path(f)
-        if p.is_dir():
-            input_files.extend(sorted(p.glob("*.gr")))
-            input_files.extend(sorted(p.glob("*.txt")))
-        elif p.exists():
-            input_files.append(p)
-        else:
-            print(f"[warning] Skipping missing file: {f}")
+    # === Collect valid files ===
+    input_files = collect_valid_files(args.files)
 
     if not input_files:
-        print("No valid input files found.")
+        print("No valid numeric data files found.")
         return
 
-    # === Dispatch behavior ===
+    # === Dispatch to plotting modes ===
+    use_right_legend = args.legend_right
+
     if args.diff:
-        if len(input_files) != 2:
-            print("[Error] --diff requires exactly two files.")
-            return
-        plot_diff(input_files)
+        plot_diff(input_files, legend_right=use_right_legend)
+
     elif args.diffmatrix:
-        plot_diff_matrix(input_files, yspace=args.yspace)
+        plot_diff_matrix(
+            input_files, yspace=args.yspace, legend_right=use_right_legend
+        )
+
     elif args.waterfall:
-        plot_waterfall(input_files, yspace=args.yspace)
+        plot_waterfall(
+            input_files, yspace=args.yspace, legend_right=use_right_legend
+        )
+
     else:
-        plot_overlaid(input_files)
+        plot_overlaid(input_files, legend_right=use_right_legend)
 
 
 if __name__ == "__main__":

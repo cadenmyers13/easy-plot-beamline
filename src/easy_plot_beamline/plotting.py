@@ -1,132 +1,190 @@
 # plotting.py
+from __future__ import annotations
+
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import numpy as np
 from diffpy.utils.parsers.loaddata import loadData
 
 
 class Plotter:
-    """General-purpose plotter for two-column data files.
-
-    Supports:
-        - Overlaid curves
-        - Direct difference
-        - Difference matrix
-        - Waterfall plots
+    """
+    Main plotting class: handles loading data, plotting styles,
+    legend placement, and x-limits.
     """
 
-    def __init__(self, legend_func=None):
-        self.legend_func = legend_func or plt.legend
+    def __init__(self, legend_right=False, xmin=None, xmax=None):
+        self.legend_right = legend_right
+        self.xmin = xmin
+        self.xmax = xmax
 
-    # ------------------------------------------------------------------
-    # Data loading
-    # ------------------------------------------------------------------
-    def load_two_column_data(self, filepath):
-        """Try diffpy.loadData → fallback to numpy.loadtxt.
+    # ---------------------- Data Loading ---------------------------------
 
-        Returns (x, y) or None.
+    def load_data(self, filepath: Path):
+        """Try diffpy loaddata then fallback to numpy.loadtxt.
+
+        Returns (x, y) or None on failure.
         """
         # Try diffpy
         try:
-            data = loadData(filepath)
-            arr = np.asarray(data)
+            arr = np.asarray(loadData(filepath))
+            if arr.ndim == 2 and arr.shape[1] >= 2:
+                return arr[:, 0], arr[:, 1]
         except Exception:
-            # Try numpy
-            try:
-                arr = np.loadtxt(filepath)
-            except Exception:
-                return None
+            pass
 
-        if arr.ndim != 2 or arr.shape[1] < 2:
-            return None
+        # Try numpy
+        try:
+            arr = np.loadtxt(filepath)
+            if arr.ndim == 2 and arr.shape[1] >= 2:
+                return arr[:, 0], arr[:, 1]
+        except Exception:
+            pass
 
-        return arr[:, 0], arr[:, 1]
+        return None
 
-    def load_all(self, files):
-        """Load all valid two-column files and return list of (x, y,
-        label)."""
-        datasets = []
-        for f in files:
-            out = self.load_two_column_data(f)
-            if out is None:
-                continue
-            x, y = out
-            datasets.append((x, y, f.stem))
-        return datasets
+    # ---------------------- Legend placement ------------------------------
 
-    # ------------------------------------------------------------------
-    # Plot types
-    # ------------------------------------------------------------------
+    def _legend(self):
+        if self.legend_right:
+            plt.legend(
+                loc="upper left",
+                bbox_to_anchor=(1.02, 1.0),
+                borderaxespad=0,
+                frameon=False,
+            )
+            plt.tight_layout(rect=[0, 0, 0.8, 1])
+        else:
+            plt.legend()
+
+    # ---------------------- X-limits --------------------------------------
+
+    def _apply_xlimits(self):
+        if self.xmin is not None:
+            plt.xlim(left=self.xmin)
+        if self.xmax is not None:
+            plt.xlim(right=self.xmax)
+
+    # ---------------------- Plotting modes --------------------------------
+
     def plot_overlaid(self, files):
-        """Standard overlaid plot."""
-        datasets = self.load_all(files)
-        if not datasets:
-            print("No valid datasets to plot.")
-            return
+        plt.figure(figsize=(7, 4))
 
-        for x, y, label in datasets:
-            plt.plot(x, y, label=label)
+        plotted = False
+        for f in files:
+            data = self.load_data(f)
+            if data is None:
+                print(f"[Skipping] {f} (not readable)")
+                continue
+            x, y = data
+            plt.plot(x, y, label=f.name)
+            plotted = True
 
-        self.legend_func()
-        plt.show()
+        if plotted:
+            self._apply_xlimits()
+            self._legend()
+            plt.xlabel("r (Å)")
+            plt.ylabel("G (Å⁻²)")
+            plt.grid(True, ls="--", alpha=0.6)
+            plt.show()
+        else:
+            print("No valid data files to plot.")
+
+    def plot_waterfall(self, files, yspace=1.0):
+        plt.figure(figsize=(7, 4))
+
+        offset = 0
+        plotted = False
+
+        for f in files:
+            data = self.load_data(f)
+            if data is None:
+                print(f"[Skipping] {f} (not readable)")
+                continue
+            x, y = data
+            plt.plot(x, y + offset, label=f.name)
+            offset += yspace
+            plotted = True
+
+        if plotted:
+            self._apply_xlimits()
+            self._legend()
+            plt.xlabel("r (Å)")
+            plt.ylabel("G (Å⁻²)")
+            plt.grid(True, ls="--", alpha=0.6)
+            plt.show()
+        else:
+            print("No valid data files to plot.")
 
     def plot_diff(self, files):
-        """Direct difference between exactly two curves."""
         if len(files) != 2:
             print("[Error] --diff requires exactly two files.")
             return
 
-        datasets = self.load_all(files)
-        if len(datasets) != 2:
-            print("Could not load both files for diff.")
+        d1 = self.load_data(files[0])
+        d2 = self.load_data(files[1])
+
+        if d1 is None or d2 is None:
+            print("[Error] One of the two files is unreadable.")
             return
 
-        x1, y1, label1 = datasets[0]
-        x2, y2, label2 = datasets[1]
+        x1, y1 = d1
+        x2, y2 = d2
 
         if not np.allclose(x1, x2):
-            print("Warning: r-grids differ. Interpolating.")
             y2 = np.interp(x1, x2, y2)
 
-        diff = y1 - y2
-        plt.plot(x1, diff, label=f"{label1} - {label2}")
+        plt.figure(figsize=(7, 4))
+        plt.plot(x1, y1 - y2, label=f"{files[0].name} - {files[1].name}")
 
-        self.legend_func()
+        self._apply_xlimits()
+        self._legend()
+        plt.grid(True, ls="--", alpha=0.6)
+        plt.xlabel("X")
+        plt.ylabel("ΔY")
         plt.show()
 
     def plot_diff_matrix(self, files, yspace=1.0):
-        """Pairwise differences between all curves (i < j)."""
-        datasets = self.load_all(files)
-        if len(datasets) < 2:
-            print("Need at least 2 valid files for diffmatrix.")
-            return
+        plt.figure(figsize=(7, 4))
 
-        for i in range(len(datasets)):
-            for j in range(i + 1, len(datasets)):
-                x1, y1, l1 = datasets[i]
-                x2, y2, l2 = datasets[j]
+        offset = 0
+        plotted = False
+
+        for i in range(len(files)):
+            for j in range(i + 1, len(files)):
+
+                d1 = self.load_data(files[i])
+                d2 = self.load_data(files[j])
+
+                if d1 is None or d2 is None:
+                    print(f"[Skipping] {files[i].name} vs {files[j].name}")
+                    continue
+
+                x1, y1 = d1
+                x2, y2 = d2
 
                 if not np.allclose(x1, x2):
                     y2 = np.interp(x1, x2, y2)
-                    x = x1
-                else:
-                    x = x1
 
                 diff = y1 - y2
-                offset = yspace * (j - i)
-                plt.plot(x, diff + offset, label=f"{l1} - {l2}")
 
-        self.legend_func()
-        plt.show()
+                plt.plot(
+                    x1,
+                    diff + offset,
+                    label=f"{files[i].name} - {files[j].name}",
+                    lw=1.2,
+                )
+                plt.axhline(offset, color="black", linewidth=0.7)
+                offset += yspace
+                plotted = True
 
-    def plot_waterfall(self, files, yspace=1.0):
-        """Offset stacked plot."""
-        datasets = self.load_all(files)
-        if not datasets:
-            print("No valid datasets to plot.")
-            return
-
-        for i, (x, y, label) in enumerate(datasets):
-            plt.plot(x, y + i * yspace, label=label)
-
-        self.legend_func()
-        plt.show()
+        if plotted:
+            self._apply_xlimits()
+            self._legend()
+            plt.xlabel("X")
+            plt.ylabel("ΔY (multiple)")
+            plt.grid(True, ls="--", alpha=0.6)
+            plt.show()
+        else:
+            print("No valid pairwise data to compute diff matrix.")

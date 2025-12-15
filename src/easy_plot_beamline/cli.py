@@ -2,77 +2,65 @@
 import argparse
 from pathlib import Path
 
-from plotting import Plotter
+from easy_plot_beamline.plotting import Plotter
 
 
-def collect_files(items):
-    """Collect all files from input arguments (files or directories)."""
-    collected = []
-    for item in items:
-        p = Path(item)
-        if p.is_dir():
-            for f in sorted(p.iterdir()):
-                if f.is_file():
-                    collected.append(f)
-        elif p.is_file():
-            collected.append(p)
+def collect_files(paths):
+    """Accept any file extension.
+
+    Directories are searched flat.
+    """
+    out = []
+    for p in paths:
+        P = Path(p)
+        if P.is_dir():
+            out.extend(sorted(P.iterdir()))
+        elif P.is_file():
+            out.append(P)
         else:
-            print(f"[warning] Skipping missing file: {item}")
-    return collected
+            print(f"[Warning] Skipping missing path: {p}")
+    return out
 
 
 def main():
     parser = argparse.ArgumentParser(
         prog="easyplot",
-        description="Easily plot and visualize two-column PDF or text data.",
+        description="Plot and visualize two-column data (any file extension).",
     )
 
-    parser.add_argument("files", nargs="+", help="Input files or directories.")
-    parser.add_argument(
-        "--version", action="store_true", help="Show version and exit"
-    )
-    parser.add_argument(
-        "--waterfall", action="store_true", help="Waterfall plot"
-    )
-    parser.add_argument(
-        "--diffmatrix", action="store_true", help="Pairwise difference matrix"
-    )
-    parser.add_argument(
-        "--diff", action="store_true", help="Direct diff between two files"
-    )
-    parser.add_argument(
-        "--yspace",
-        type=float,
-        default=1.0,
-        help="Vertical spacing for waterfall/diffmatrix",
-    )
+    parser.add_argument("files", nargs="+", help="Files or directories.")
+
+    parser.add_argument("--waterfall", action="store_true")
+    parser.add_argument("--diffmatrix", action="store_true")
+    parser.add_argument("--diff", action="store_true")
+    parser.add_argument("--yspace", type=float, default=1.0)
+
+    # NEW FEATURES
+    parser.add_argument("--legend-right", action="store_true")
+    parser.add_argument("--xmin", type=float, default=None)
+    parser.add_argument("--xmax", type=float, default=None)
 
     args = parser.parse_args()
 
-    # Version
-    if args.version:
-        from easy_plot_beamline.version import __version__
-
-        print(f"easy-plot-beamline {__version__}")
+    files = collect_files(args.files)
+    if not files:
+        print("No valid files found.")
         return
 
-    # Files
-    input_files = collect_files(args.files)
-    if not input_files:
-        print("No valid input files found.")
-        return
+    plotter = Plotter(
+        legend_right=args.legend_right,
+        xmin=args.xmin,
+        xmax=args.xmax,
+    )
 
-    plotter = Plotter()
-
-    # Dispatch
     if args.diff:
-        plotter.plot_diff(input_files)
+        plotter.plot_diff(files)
     elif args.diffmatrix:
-        plotter.plot_diff_matrix(input_files, yspace=args.yspace)
+        plotter.plot_diff_matrix(files, yspace=args.yspace)
     elif args.waterfall:
-        plotter.plot_waterfall(input_files, yspace=args.yspace)
+        plotter.plot_waterfall(files, yspace=args.yspace)
     else:
-        plotter.plot_overlaid(input_files)
+        plotter.plot_overlaid(files)
 
 
 if __name__ == "__main__":

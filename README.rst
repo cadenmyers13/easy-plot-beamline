@@ -78,25 +78,29 @@ To view the basic usage and available commands, type ::
 Getting Started
 ---------------
 
-Once installed, you can use the ``easyplot`` CLI:
+Once installed, you can use the ``easyplot`` CLI. Type ``-h`` to see the available commands
+for all subcommands.
 
 .. code-block:: bash
 
-        # Overlay multiple files
-        easyplot file1.gr file2.gr
-
-        # Waterfall plot with spacing
-        easyplot data/ --waterfall --yspace=2
-
-        # Pairwise difference matrix
-        easyplot data/ --diffmatrix --yspace=1.5
-
-        # Direct difference between two files
-        easyplot file1.gr file2.gr --diff
-
-        # Get help
         easyplot -h
+        easyplot plot -h
+        easyplot waterfall -h
+        easyplot diff -h
+        easyplot diffmatrix -h
 
+Here are some example usages:
+
+.. code-block:: bash
+
+        # plot data overlaid
+        easyplot plot file.gr file.txt ...
+        # plot waterfall plot
+        easyplot waterfall file.gr file.txt ...
+        # plot difference between two datasets
+        easyplot diff file1.gr file2.gr
+        # plot difference matrix of multiple datasets
+        easyplot diffmatrix file1.gr file2.gr ...
 
 Support and Contribute
 ----------------------

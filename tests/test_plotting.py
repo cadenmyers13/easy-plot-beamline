@@ -19,12 +19,14 @@ class TestLoadData:
     )
     def test_load_data(self, datafiles, key, expected_none):
         plotter = Plotter()
-        result = plotter.load_data(datafiles[key])
+        actual_result = plotter.load_data(datafiles[key])
         if expected_none:
-            assert result is None
+            assert actual_result is None
         else:
-            x, y = result
-            assert len(x) == len(y) == 20
+            actual_x, actual_y = actual_result
+            expected_length = 20
+            assert len(actual_x) == expected_length
+            assert len(actual_y) == expected_length
 
 
 class TestFindReferenceIndex:
@@ -33,12 +35,16 @@ class TestFindReferenceIndex:
     def test_match_found(self, datafiles):
         plotter = Plotter()
         files = [datafiles["a"], datafiles["b"]]
-        assert plotter._find_reference_index(files, "b.gr") == 1
+        actual_index = plotter._find_reference_index(files, "b.gr")
+        expected_index = 1
+        assert actual_index == expected_index
 
     def test_match_by_full_path_also_works(self, datafiles):
         plotter = Plotter()
         files = [datafiles["a"], datafiles["b"]]
-        assert plotter._find_reference_index(files, datafiles["b"]) == 1
+        actual_index = plotter._find_reference_index(files, datafiles["b"])
+        expected_index = 1
+        assert actual_index == expected_index
 
     def test_no_match_raises(self, datafiles):
         plotter = Plotter()
@@ -53,15 +59,17 @@ class TestComputeScaleToReference:
         x = np.linspace(0, 10, 50)
         y = np.sin(x)
         yref = 3.0 * y
-        scale = plotter._compute_scale_to_reference(x, y, x, yref)
-        assert scale == pytest.approx(3.0)
+        actual_scale = plotter._compute_scale_to_reference(x, y, x, yref)
+        expected_scale = 3.0
+        assert actual_scale == pytest.approx(expected_scale)
 
     def test_zero_data_returns_one(self):
         plotter = Plotter()
         x = np.linspace(0, 10, 5)
         y = np.zeros_like(x)
-        scale = plotter._compute_scale_to_reference(x, y, x, y)
-        assert scale == 1.0
+        actual_scale = plotter._compute_scale_to_reference(x, y, x, y)
+        expected_scale = 1.0
+        assert actual_scale == expected_scale
 
 
 class TestSetPlotParameters:
@@ -71,8 +79,10 @@ class TestSetPlotParameters:
         plt.figure()
         Plotter()._set_plot_parameters()
         ax = plt.gca()
-        assert ax.get_xlabel() == ""
-        assert ax.get_ylabel() == ""
+        actual_xlabel = ax.get_xlabel()
+        actual_ylabel = ax.get_ylabel()
+        assert actual_xlabel == ""
+        assert actual_ylabel == ""
         plt.close()
 
     def test_custom_labels_are_applied(self):
@@ -80,8 +90,12 @@ class TestSetPlotParameters:
         plotter = Plotter(xlabel="r (Å)", ylabel="G (Å⁻²)")
         plotter._set_plot_parameters()
         ax = plt.gca()
-        assert ax.get_xlabel() == "r (Å)"
-        assert ax.get_ylabel() == "G (Å⁻²)"
+        actual_xlabel = ax.get_xlabel()
+        actual_ylabel = ax.get_ylabel()
+        expected_xlabel = "r (Å)"
+        expected_ylabel = "G (Å⁻²)"
+        assert actual_xlabel == expected_xlabel
+        assert actual_ylabel == expected_ylabel
         plt.close()
 
 
@@ -92,7 +106,8 @@ class TestPlotOverlaid:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_overlaid([datafiles["a"], datafiles["b"]])
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_no_readable_files_prints_message(
         self, datafiles, tmp_path, capsys
@@ -100,8 +115,10 @@ class TestPlotOverlaid:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_overlaid([datafiles["unreadable"]])
-        assert not output.exists()
-        assert "No valid data files to plot." in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert not actual_output_exists
+        assert "No valid data files to plot." in actual_stdout
 
     def test_partial_readable_skips_bad_file(
         self, datafiles, tmp_path, capsys
@@ -109,8 +126,10 @@ class TestPlotOverlaid:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_overlaid([datafiles["a"], datafiles["unreadable"]])
-        assert output.exists()
-        assert "[Skipping]" in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert actual_output_exists
+        assert "[Skipping]" in actual_stdout
 
 
 class TestPlotWaterfall:
@@ -118,7 +137,8 @@ class TestPlotWaterfall:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_waterfall([datafiles["a"], datafiles["b"]])
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_scale_to_matches_by_filename(self, datafiles, tmp_path):
         output = tmp_path / "out.png"
@@ -127,7 +147,8 @@ class TestPlotWaterfall:
             [datafiles["a"], datafiles["b"]],
             scale_to="a.gr",
         )
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_scale_to_unknown_reference_raises(self, datafiles, tmp_path):
         plotter = Plotter(output=tmp_path / "out.png")
@@ -146,21 +167,26 @@ class TestPlotDiff:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_diff([datafiles["a"], datafiles["b"]])
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_wrong_file_count_prints_error(self, datafiles, tmp_path, capsys):
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_diff([datafiles["a"]])
-        assert not output.exists()
-        assert "exactly two files" in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert not actual_output_exists
+        assert "exactly two files" in actual_stdout
 
     def test_unreadable_file_prints_error(self, datafiles, tmp_path, capsys):
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_diff([datafiles["a"], datafiles["unreadable"]])
-        assert not output.exists()
-        assert "could not be read" in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert not actual_output_exists
+        assert "could not be read" in actual_stdout
 
     def test_non_overlapping_x_range_prints_error(self, tmp_path, capsys):
         x1 = np.linspace(0, 1, 10)
@@ -173,8 +199,10 @@ class TestPlotDiff:
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_diff([f1, f2])
-        assert not output.exists()
-        assert "overlapping x-range" in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert not actual_output_exists
+        assert "overlapping x-range" in actual_stdout
 
 
 class TestPlotDiffMatrix:
@@ -184,11 +212,14 @@ class TestPlotDiffMatrix:
         plotter.plot_diff_matrix(
             [datafiles["a"], datafiles["b"], datafiles["c"]]
         )
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_single_file_prints_message(self, datafiles, tmp_path, capsys):
         output = tmp_path / "out.png"
         plotter = Plotter(output=output)
         plotter.plot_diff_matrix([datafiles["a"]])
-        assert not output.exists()
-        assert "diff matrix" in capsys.readouterr().out
+        actual_output_exists = output.exists()
+        actual_stdout = capsys.readouterr().out
+        assert not actual_output_exists
+        assert "diff matrix" in actual_stdout

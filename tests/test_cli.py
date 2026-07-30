@@ -14,16 +14,18 @@ class TestCollectFiles:
         nested = subdir / "nested.gr"
         nested.write_text("0 0\n1 1\n")
 
-        files = collect_files([str(datafiles["a"]), str(subdir)])
+        actual_files = collect_files([str(datafiles["a"]), str(subdir)])
 
-        assert datafiles["a"] in files
-        assert nested in files
+        assert datafiles["a"] in actual_files
+        assert nested in actual_files
 
     def test_missing_path_is_skipped(self, tmp_path, capsys):
         missing = tmp_path / "does_not_exist.gr"
-        files = collect_files([str(missing)])
-        assert files == []
-        assert "no such file or directory" in capsys.readouterr().out
+        actual_files = collect_files([str(missing)])
+        actual_stdout = capsys.readouterr().out
+        expected_files = []
+        assert actual_files == expected_files
+        assert "no such file or directory" in actual_stdout
 
 
 class TestParseScaleList:
@@ -31,12 +33,14 @@ class TestParseScaleList:
     # C2: matching count, expect parsed floats
     # C3: mismatched count, expect ValueError
     def test_none_returns_default_scales(self):
+        actual_scales = parse_scale_list(None, 3)
         expected_scales = [1.0, 1.0, 1.0]
-        assert parse_scale_list(None, 3) == expected_scales
+        assert actual_scales == expected_scales
 
     def test_parses_matching_count(self):
+        actual_scales = parse_scale_list("4,1,0.5", 3)
         expected_scales = [4.0, 1.0, 0.5]
-        assert parse_scale_list("4,1,0.5", 3) == expected_scales
+        assert actual_scales == expected_scales
 
     def test_mismatched_count_raises(self):
         with pytest.raises(ValueError, match="expects 3"):
@@ -64,7 +68,8 @@ class TestMainDispatch:
             ],
         )
         main()
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_diff_command_runs(self, datafiles, tmp_path, monkeypatch):
         output = tmp_path / "out.png"
@@ -81,7 +86,8 @@ class TestMainDispatch:
             ],
         )
         main()
-        assert output.exists()
+        actual_output_exists = output.exists()
+        assert actual_output_exists
 
     def test_no_valid_files_prints_message(
         self, tmp_path, monkeypatch, capsys
@@ -89,4 +95,5 @@ class TestMainDispatch:
         missing = tmp_path / "missing.gr"
         monkeypatch.setattr("sys.argv", ["easyplot", "plot", str(missing)])
         main()
-        assert "No valid files found." in capsys.readouterr().out
+        actual_stdout = capsys.readouterr().out
+        assert "No valid files found." in actual_stdout

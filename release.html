@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Release notes &mdash; easy-plot-beamline 0.2.0rc0 documentation</title>
+  <title>Release notes &mdash; easy-plot-beamline 0.2.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=4ee4825d"></script>
+      <script src="_static/documentation_options.js?v=95e61db4"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -48,7 +48,10 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/easy_plot_beamline.html">Package API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">0.2.0</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -78,6 +81,27 @@
              
   <section id="release-notes">
 <span id="index-0"></span><h1>Release notes<a class="headerlink" href="#release-notes" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>0.2.0<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p><strong>Added:</strong></p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">-o/--output</span></code> option to save plots to a file instead of displaying them interactively.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--xlabel</span></code>/<code class="docutils literal notranslate"><span class="pre">--ylabel</span></code> options to set axis labels; axes are left unlabeled by default.</p></li>
+<li><p>Add unit tests for the CLI and plotting modules.</p></li>
+<li><p>Add argument <code class="docutils literal notranslate"><span class="pre">--legend-right</span></code> which shows the legend on the right side.</p></li>
+<li><p>Add support for Python 3.14.</p></li>
+</ul>
+<p><strong>Changed:</strong></p>
+<ul class="simple">
+<li><p>Match <code class="docutils literal notranslate"><span class="pre">--scale-to</span></code> against the plotted files by filename instead of exact path.</p></li>
+<li><p>Axes are no longer labeled “r (Å)” / “G (Å⁻²)” by default; pass <code class="docutils literal notranslate"><span class="pre">--xlabel</span></code>/<code class="docutils literal notranslate"><span class="pre">--ylabel</span></code> explicitly if labels are wanted.</p></li>
+</ul>
+<p><strong>Fixed:</strong></p>
+<ul class="simple">
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">easyplot</span> <span class="pre">plot</span> <span class="pre">...</span></code> crashing because <code class="docutils literal notranslate"><span class="pre">--xmin</span></code>/ <code class="docutils literal notranslate"><span class="pre">--xmax</span></code> were not defined on that subcommand.</p></li>
+<li><p>Fix the top-level <code class="docutils literal notranslate"><span class="pre">--legend-off</span></code> flag being silently overwritten by the <code class="docutils literal notranslate"><span class="pre">waterfall</span></code>/ <code class="docutils literal notranslate"><span class="pre">diff</span></code> subcommands’ own defaults.</p></li>
+</ul>
+</section>
 </section>
 
 

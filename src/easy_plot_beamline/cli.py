@@ -99,7 +99,8 @@ easyplot waterfall file.gr file.txt ...
 easyplot diff file1.gr file2.gr
 # plot difference matrix of multiple datasets
 easyplot diffmatrix file1.gr file2.gr ...
-        """,
+        """
+           ,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     subparsers = parser.add_subparsers(dest="command", required=True)

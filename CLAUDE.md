@@ -152,6 +152,11 @@ instead of generic names like:
 expected
 ```
 
+Assert statements should nearly always look like,
+
+```
+assert actual_* == expected_*
+
 - Order tests from common behavior to edge cases.
 - Move reusable fixtures into `conftest.py`.
 
@@ -176,9 +181,11 @@ Use hyphens (`-`) for:
 Examples:
 
 ```
+
 my-project
 feature/new-parser
 --output-file
+
 ```
 
 Use underscores (`_`) for:
@@ -190,9 +197,11 @@ Use underscores (`_`) for:
 Examples:
 
 ```
+
 test_diffraction_objects.py
 
 diffpy.utils.parsers
+
 ```
 
 Follow tool-specific naming conventions where required by external tooling.
@@ -209,8 +218,10 @@ Error messages should contain two parts:
 Prefer:
 
 ```
+
 Both release and pre-release were specified.
 Please specify only one of these options.
+
 ```
 
 Avoid cryptic or programmer-oriented messages.
@@ -272,3 +283,4 @@ Unless instructed otherwise, always:
 - Use **NumPy-style docstrings** for all public functions/classes.
 - Avoid unnecessary boilerplate (e.g. don't add `from __future__ import annotations`
   unless it's actually needed).
+```

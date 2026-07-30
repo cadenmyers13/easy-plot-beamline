@@ -86,21 +86,19 @@ def main():
     common = _build_common_parser()
     parser = argparse.ArgumentParser(
         prog="easyplot",
-        description="""
-Plot and visualize two-column data (any file extension).
-
-example usage:
---------------
-# plot data overlaid
-easyplot plot file.gr file.txt ...
-# plot waterfall plot
-easyplot waterfall file.gr file.txt ...
-# plot difference between two datasets
-easyplot diff file1.gr file2.gr
-# plot difference matrix of multiple datasets
-easyplot diffmatrix file1.gr file2.gr ...
-        """
-           ,
+        description=(
+            "Plot and visualize two-column data (any file extension).\n\n"
+            "example usage:\n"
+            "--------------\n"
+            "# plot data overlaid\n"
+            "easyplot plot file.gr file.txt ...\n"
+            "# plot waterfall plot\n"
+            "easyplot waterfall file.gr file.txt ...\n"
+            "# plot difference between two datasets\n"
+            "easyplot diff file1.gr file2.gr\n"
+            "# plot difference matrix of multiple datasets\n"
+            "easyplot diffmatrix file1.gr file2.gr ..."
+        ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     subparsers = parser.add_subparsers(dest="command", required=True)

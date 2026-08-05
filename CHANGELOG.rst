@@ -24,4 +24,3 @@ Release notes
 
 * Fix ``easyplot plot ...`` crashing because ``--xmin``/ ``--xmax`` were not defined on that subcommand.
 * Fix the top-level ``--legend-off`` flag being silently overwritten by the ``waterfall``/ ``diff`` subcommands' own defaults.
-

@@ -50,7 +50,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_rtd_theme",
     "sphinx_copybutton",
-    "m2r",
+    "m2r2",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -69,7 +69,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "easy-plot-beamline"
-copyright = "%Y, The Trustees of Columbia University in the City of New York"
+copyright = "%Y, Caden"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -318,9 +318,5 @@ texinfo_documents = [
 # texinfo_no_detailmenu = False
 
 
-# Configuration for intersphinx: resolve types referenced in docstrings.
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
-    "numpy": ("https://numpy.org/doc/stable/", None),
-    "matplotlib": ("https://matplotlib.org/stable/", None),
-}
+# Example configuration for intersphinx: refer to the Python standard library.
+# intersphinx_mapping = {'http://docs.python.org/': None}

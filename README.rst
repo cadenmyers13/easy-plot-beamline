@@ -38,6 +38,8 @@
 
 Easily plot and visualize two-column data on-the-fly.
 
+* LONGER DESCRIPTION HERE
+
 For more information about the easy-plot-beamline library, please consult our `online documentation <https://cadenmyers13.github.io/easy-plot-beamline>`_.
 
 Citation
@@ -50,7 +52,23 @@ If you use easy-plot-beamline in a scientific publication, we would like you to 
 Installation
 ------------
 
-Use ``pip`` to download and install the latest release from
+The preferred method is to use `Miniconda Python
+<https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html>`_
+and install from the "conda-forge" channel of Conda packages.
+
+To add "conda-forge" to the conda channels, run the following in a terminal. ::
+
+        conda config --add channels conda-forge
+
+We want to install our packages in a suitable conda environment.
+The following creates and activates a new environment named ``easy-plot-beamline_env`` ::
+
+        conda create -n easy-plot-beamline_env easy-plot-beamline
+        conda activate easy-plot-beamline_env
+
+The output should print the latest version displayed on the badges above.
+
+If the above does not work, you can use ``pip`` to download and install the latest release from
 `Python Package Index <https://pypi.python.org>`_.
 To install using ``pip`` into your ``easy-plot-beamline_env`` environment, type ::
 
@@ -73,34 +91,12 @@ You can also type the following command to verify the installation. ::
 
 To view the basic usage and available commands, type ::
 
-        easyplot -h
+        easy-plot-beamline -h
 
 Getting Started
 ---------------
 
-Once installed, you can use the ``easyplot`` CLI. Type ``-h`` to see the available commands
-for all subcommands.
-
-.. code-block:: bash
-
-        easyplot -h
-        easyplot plot -h
-        easyplot waterfall -h
-        easyplot diff -h
-        easyplot diffmatrix -h
-
-Here are some example usages:
-
-.. code-block:: bash
-
-        # plot data overlaid
-        easyplot plot file.gr file.txt ...
-        # plot waterfall plot
-        easyplot waterfall file.gr file.txt ...
-        # plot difference between two datasets
-        easyplot diff file1.gr file2.gr
-        # plot difference matrix of multiple datasets
-        easyplot diffmatrix file1.gr file2.gr ...
+You may consult our `online documentation <https://cadenmyers13.github.io/easy-plot-beamline>`_ for tutorials and API references.
 
 Support and Contribute
 ----------------------
@@ -133,7 +129,7 @@ Before contributing, please read our `Code of Conduct <https://github.com/cadenm
 Contact
 -------
 
-For more information on easy-plot-beamline please visit the project `web-page <https://cadenmyers13.github.io/>`_ or email Caden Myers at cjm2304@columbia.edu.
+For more information on easy-plot-beamline please visit the project `web-page <https://cadenmyers13.github.io/>`_ or email the maintainers ``Caden Myers(cjm2304@columbia.edu)``.
 
 Acknowledgements
 ----------------

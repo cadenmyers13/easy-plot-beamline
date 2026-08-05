@@ -10,25 +10,21 @@
     :undoc-members:
     :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+   easy_plot_beamline.example_package
+
 Submodules
 ----------
 
-|plotting|
-----------
+|module|
+--------
 
-.. |plotting| replace:: easy_plot_beamline.plotting module
+.. |module| replace:: easy_plot_beamline.example_submodule module
 
-.. automodule:: easy_plot_beamline.plotting
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-|cli|
------
-
-.. |cli| replace:: easy_plot_beamline.cli module
-
-.. automodule:: easy_plot_beamline.cli
+.. automodule:: easy_plot_beamline.example_submodule
     :members:
     :undoc-members:
     :show-inheritance:

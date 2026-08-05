@@ -1,4 +1,1 @@
 numpy
-matplotlib
-diffpy.utils
-bg_mpl_stylesheets

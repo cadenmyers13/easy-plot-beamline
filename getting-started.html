@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Getting started &mdash; easy-plot-beamline 0.2.0 documentation</title>
+  <title>Getting started &mdash; easy-plot-beamline 0.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=95e61db4"></script>
+      <script src="_static/documentation_options.js?v=3ca669d2"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -47,11 +47,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#reuse-rst-files-across-multiple-pages">Reuse <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files across multiple pages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#refer-to-a-specific-section-in-the-documentation">Refer to a specific section in the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#embed-your-code-snippets-in-the-documentation">Embed your code snippets in the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#attach-an-image-to-the-documentation">Attach an image to the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-useful-directives">Other useful directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-data">Input data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#passing-files-and-directories">Passing files and directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overlay-datasets-with-plot">Overlay datasets with <code class="docutils literal notranslate"><span class="pre">plot</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stack-datasets-with-waterfall">Stack datasets with <code class="docutils literal notranslate"><span class="pre">waterfall</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compare-two-datasets-with-diff">Compare two datasets with <code class="docutils literal notranslate"><span class="pre">diff</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compare-many-datasets-with-diffmatrix">Compare many datasets with <code class="docutils literal notranslate"><span class="pre">diffmatrix</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#shared-options">Shared options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-instead-of-displaying">Saving instead of displaying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-api-directly">Using the API directly</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/easy_plot_beamline.html">Package API</a></li>
@@ -85,103 +93,200 @@
              
   <section id="getting-started">
 <span id="index-0"></span><span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
-<p>Here are some example templates provided to help you get started with writing your documentation. You can use these templates to create your own documentation.</p>
-<section id="reuse-rst-files-across-multiple-pages">
-<h2>Reuse <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files across multiple pages<a class="headerlink" href="#reuse-rst-files-across-multiple-pages" title="Link to this heading"></a></h2>
-<p>Here is how you can reuse a reusable block of <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files across multiple pages:</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">5 levels of reusing/sharing code</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
-<colgroup>
-<col style="width: 5.0%" />
-<col style="width: 15.0%" />
-<col style="width: 40.0%" />
-<col style="width: 40.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Level</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Scope</p></th>
-<th class="head"><p>How to setup</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>1</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">function</span></code></p></td>
-<td><p>Reuse code in the single file.</p></td>
-<td><p>See Level 1 tutorial</p></td>
-</tr>
-<tr class="row-odd"><td><p>2</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">module</span></code></p></td>
-<td><p>Reuse code across files.</p></td>
-<td><p>See Level 2 tutorial</p></td>
-</tr>
-<tr class="row-even"><td><p>3</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">workspace</span></code></p></td>
-<td><p>Reuse code across project folders.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">create</span> <span class="pre">workspace</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">system</span></code></p></td>
-<td><p>Reuse code across any files in the computer.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">create</span> <span class="pre">system</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>5</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">public</span></code></p></td>
-<td><p>Share code as publicly installable package.</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">create</span> <span class="pre">public</span></code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Ensure that the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file you are including is not too long. If it is too long, it may be better to split it into multiple files and include them separately.</p>
+<p><code class="docutils literal notranslate"><span class="pre">easy-plot-beamline</span></code> provides the <code class="docutils literal notranslate"><span class="pre">easyplot</span></code> command-line tool for quickly
+plotting two-column data without writing a plotting script. It is intended for
+on-the-fly visualization at the beamline, where you want to look at a file, or a
+directory of files, as soon as it is written.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install the latest release from PyPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">easy</span><span class="o">-</span><span class="n">plot</span><span class="o">-</span><span class="n">beamline</span>
+</pre></div>
 </div>
-</section>
-<section id="refer-to-a-specific-section-in-the-documentation">
-<h2>Refer to a specific section in the documentation<a class="headerlink" href="#refer-to-a-specific-section-in-the-documentation" title="Link to this heading"></a></h2>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">ref</span></code> tag to refer to a specific section in the documentation. For example, you can refer to the section below using the <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> tag as shown <a class="reference internal" href="#attach-image"><span class="std std-ref">here</span></a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please check the raw <code class="docutils literal notranslate"><span class="pre">.rst</span></code> file of this page to see the exact use of the <code class="docutils literal notranslate"><span class="pre">:ref:</span></code> tag.</p>
-</div>
-</section>
-<section id="embed-your-code-snippets-in-the-documentation">
-<h2>Embed your code snippets in the documentation<a class="headerlink" href="#embed-your-code-snippets-in-the-documentation" title="Link to this heading"></a></h2>
-<p>Here is how you can write a block of code in the documentation. You can use the <code class="docutils literal notranslate"><span class="pre">code-block</span></code> directive to write a block of code in the documentation. For example, you can write a block of code as shown below:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new environment, without build dependencies (pure Python package)</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>&lt;package_name&gt;-env<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.13<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--file<span class="w"> </span>requirements/tests.txt<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--file<span class="w"> </span>requirements/conda.txt
+<p>Confirm that the installation succeeded:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import easy_plot_beamline; print(easy_plot_beamline.__version__)&quot;</span>
 
-<span class="c1"># Create a new environment, with build dependencies (non-pure Python package)</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>&lt;package_name&gt;-env<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.13<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--file<span class="w"> </span>requirements/tests.txt<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--file<span class="w"> </span>requirements/conda.txt<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--file<span class="w"> </span>requirements/build.txt
-
-<span class="c1"># Activate the environment</span>
-conda<span class="w"> </span>activate<span class="w"> </span>&lt;package_name&gt;_env
-
-<span class="c1"># Install your package locally</span>
-<span class="c1"># `--no-deps` to NOT install packages again from `requirements.pip.txt`</span>
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>--no-deps
-
-<span class="c1"># Run pytest locally</span>
-pytest
-
-<span class="c1"># ... run example tutorials</span>
+<span class="n">easyplot</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
 </section>
-<section id="attach-an-image-to-the-documentation">
-<span id="attach-image"></span><h2>Attach an image to the documentation<a class="headerlink" href="#attach-an-image-to-the-documentation" title="Link to this heading"></a></h2>
-<p>Here is how you attach an image to the documentation. The <code class="docutils literal notranslate"><span class="pre">/docs/source/img/scikit-package-logo-text.png</span></code> example image is provided in the template.</p>
-<a class="reference internal image-reference" href="_images/scikit-package-logo-text.png"><img alt="codecov-in-pr-comment" class="align-center" src="_images/scikit-package-logo-text.png" style="width: 400px;" />
-</a>
+<section id="input-data">
+<h2>Input data<a class="headerlink" href="#input-data" title="Link to this heading"></a></h2>
+<p>Every command reads two-column numerical data. The first column is used as the
+x values and the second as the y values. Files are loaded with
+<code class="docutils literal notranslate"><span class="pre">diffpy.utils.parsers.loaddata.loadData</span></code>, falling back to <code class="docutils literal notranslate"><span class="pre">numpy.loadtxt</span></code>,
+so comment headers written by common beamline software are handled
+automatically.</p>
+<p>The file extension is not inspected, so <code class="docutils literal notranslate"><span class="pre">.gr</span></code>, <code class="docutils literal notranslate"><span class="pre">.chi</span></code>, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">.dat</span></code>,
+and extensionless files all work. Files with more than two columns are accepted
+and the extra columns are ignored.</p>
+<p>Any file that cannot be parsed as two-column data is reported and skipped rather
+than aborting the plot.</p>
 </section>
-<section id="other-useful-directives">
-<h2>Other useful directives<a class="headerlink" href="#other-useful-directives" title="Link to this heading"></a></h2>
-<p>Here is how you can do menu selection  <span class="menuselection">Admin ‣ Settings</span> and display labels for buttons like <span class="guilabel">Privacy level</span>.</p>
+<section id="passing-files-and-directories">
+<h2>Passing files and directories<a class="headerlink" href="#passing-files-and-directories" title="Link to this heading"></a></h2>
+<p>Every command accepts any mix of file and directory paths. A directory is
+searched flat, meaning its files are included but its subdirectories are not,
+and the files within it are sorted by name:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Three explicit files</span>
+easyplot<span class="w"> </span>plot<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr<span class="w"> </span>scan03.gr
+
+<span class="c1"># Every file in a directory, sorted by name</span>
+easyplot<span class="w"> </span>plot<span class="w"> </span>./reduced_data/
+
+<span class="c1"># A directory plus one extra file</span>
+easyplot<span class="w"> </span>plot<span class="w"> </span>./reduced_data/<span class="w"> </span>reference.gr
+</pre></div>
+</div>
+<p>Legend entries use the filename only, not the full path.</p>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">easyplot</span></code> has four subcommands. Each accepts <code class="docutils literal notranslate"><span class="pre">-h</span></code> to show its own options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>plot<span class="w"> </span>-h
+easyplot<span class="w"> </span>waterfall<span class="w"> </span>-h
+easyplot<span class="w"> </span>diff<span class="w"> </span>-h
+easyplot<span class="w"> </span>diffmatrix<span class="w"> </span>-h
+</pre></div>
+</div>
+<section id="overlay-datasets-with-plot">
+<h3>Overlay datasets with <code class="docutils literal notranslate"><span class="pre">plot</span></code><a class="headerlink" href="#overlay-datasets-with-plot" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">plot</span></code> draws every dataset on the same axes, which is the fastest way to
+compare datasets that share a y scale:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>plot<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr<span class="w"> </span>scan03.gr
+</pre></div>
+</div>
+</section>
+<section id="stack-datasets-with-waterfall">
+<span id="waterfall"></span><h3>Stack datasets with <code class="docutils literal notranslate"><span class="pre">waterfall</span></code><a class="headerlink" href="#stack-datasets-with-waterfall" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">waterfall</span></code> offsets each successive dataset vertically so that curves which
+would otherwise sit on top of one another can be read individually:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>waterfall<span class="w"> </span>./reduced_data/
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--yspace</span></code> to control the vertical spacing between datasets. Larger values
+spread the curves further apart:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>waterfall<span class="w"> </span>./reduced_data/<span class="w"> </span>--yspace<span class="w"> </span><span class="m">2</span>.5
+</pre></div>
+</div>
+<p>Datasets collected with different counting times often need to be put on a
+common scale before stacking. There are two ways to do this.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--scale</span></code> to set the scale factor for each file explicitly. It takes one
+comma-separated value per file, in the order the files are plotted:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>waterfall<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr<span class="w"> </span>scan03.gr<span class="w"> </span>--scale<span class="w"> </span><span class="m">4</span>,1,0.5
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">--scale-to</span></code> to let <code class="docutils literal notranslate"><span class="pre">easyplot</span></code> compute the factors for you. Give it the
+name of one of the files being plotted, and every other dataset is scaled onto
+that reference by a least-squares fit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>waterfall<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr<span class="w"> </span>scan03.gr<span class="w"> </span>--scale-to<span class="w"> </span>scan02.gr
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--scale-to</span></code> is matched against the plotted files by filename, so
+<code class="docutils literal notranslate"><span class="pre">scan02.gr</span></code> and <code class="docutils literal notranslate"><span class="pre">./reduced_data/scan02.gr</span></code> both select the same file. The
+reference dataset itself is left unscaled. Datasets that do not share an x grid
+with the reference are interpolated onto it before the factor is computed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--scale</span></code> and <code class="docutils literal notranslate"><span class="pre">--scale-to</span></code> can be combined, in which case the explicit
+factor is applied on top of the fitted one.</p>
+</section>
+<section id="compare-two-datasets-with-diff">
+<h3>Compare two datasets with <code class="docutils literal notranslate"><span class="pre">diff</span></code><a class="headerlink" href="#compare-two-datasets-with-diff" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">diff</span></code> takes exactly two files and plots both datasets together with their
+difference curve below:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>diff<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr
+</pre></div>
+</div>
+<p>The two datasets are trimmed to their overlapping x range and the second is
+interpolated onto the x grid of the first, so files sampled on different grids
+can be compared directly. If the two files share no overlapping x range, the
+command reports this and exits without plotting.</p>
+<p>The difference curve is drawn below the data, separated by <code class="docutils literal notranslate"><span class="pre">--offset</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>diff<span class="w"> </span>scan01.gr<span class="w"> </span>scan02.gr<span class="w"> </span>--offset<span class="w"> </span><span class="m">3</span>.0
+</pre></div>
+</div>
+</section>
+<section id="compare-many-datasets-with-diffmatrix">
+<h3>Compare many datasets with <code class="docutils literal notranslate"><span class="pre">diffmatrix</span></code><a class="headerlink" href="#compare-many-datasets-with-diffmatrix" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">diffmatrix</span></code> plots the difference between every pair of datasets, stacked
+vertically. This is useful for spotting which dataset in a series is the odd one
+out:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>diffmatrix<span class="w"> </span>./reduced_data/<span class="w"> </span>--yspace<span class="w"> </span><span class="m">2</span>.0
+</pre></div>
+</div>
+<p>Note that the number of curves grows quickly with the number of files, since a
+set of <em>n</em> files produces <em>n(n-1)/2</em> difference curves. Ten files already give
+45 curves.</p>
+</section>
+</section>
+<section id="shared-options">
+<h2>Shared options<a class="headerlink" href="#shared-options" title="Link to this heading"></a></h2>
+<p>The following options are accepted by all four subcommands.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 80.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--xmin</span></code></p></td>
+<td><p>Set the lower x-axis limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--xmax</span></code></p></td>
+<td><p>Set the upper x-axis limit.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--xlabel</span></code></p></td>
+<td><p>Set the x-axis label. Axes are unlabeled by default.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--ylabel</span></code></p></td>
+<td><p>Set the y-axis label. Axes are unlabeled by default.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--legend-off</span></code></p></td>
+<td><p>Do not draw a legend.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span></code>, <code class="docutils literal notranslate"><span class="pre">--output</span></code></p></td>
+<td><p>Save the figure to this path instead of displaying it.</p></td>
+</tr>
+</tbody>
+</table>
+<p>For example, to restrict the plotted range and label the axes for PDF data:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>plot<span class="w"> </span>./reduced_data/<span class="w"> </span>--xmin<span class="w"> </span><span class="m">1</span>.5<span class="w"> </span>--xmax<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--xlabel<span class="w"> </span><span class="s2">&quot;r (Å)&quot;</span><span class="w"> </span>--ylabel<span class="w"> </span><span class="s2">&quot;G (Å</span>$<span class="s2">^{-2}</span>$<span class="s2">)&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-instead-of-displaying">
+<h2>Saving instead of displaying<a class="headerlink" href="#saving-instead-of-displaying" title="Link to this heading"></a></h2>
+<p>Without <code class="docutils literal notranslate"><span class="pre">-o</span></code>, <code class="docutils literal notranslate"><span class="pre">easyplot</span></code> opens an interactive matplotlib window and blocks
+until you close it. Passing <code class="docutils literal notranslate"><span class="pre">-o</span></code> writes the figure to a file and returns
+immediately, which is what you want when scripting or working over SSH without
+display forwarding:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>easyplot<span class="w"> </span>waterfall<span class="w"> </span>./reduced_data/<span class="w"> </span>-o<span class="w"> </span>waterfall.png
+</pre></div>
+</div>
+<p>The output format is chosen by matplotlib from the file extension, so <code class="docutils literal notranslate"><span class="pre">.png</span></code>,
+<code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, and <code class="docutils literal notranslate"><span class="pre">.svg</span></code> all work.</p>
+</section>
+<section id="using-the-api-directly">
+<h2>Using the API directly<a class="headerlink" href="#using-the-api-directly" title="Link to this heading"></a></h2>
+<p>Everything the CLI does is available from the <a class="reference internal" href="api/easy_plot_beamline.html#easy_plot_beamline.plotting.Plotter" title="easy_plot_beamline.plotting.Plotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plotter</span></code></a>
+class, which is useful when you want to drive plotting from a script or
+notebook:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">easy_plot_beamline.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plotter</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reduced_data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.gr&quot;</span><span class="p">))</span>
+
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;r (Å)&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;G (Å$^{-2}$)&quot;</span><span class="p">)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">plot_waterfall</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">yspace</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">scale_to</span><span class="o">=</span><span class="s2">&quot;scan02.gr&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="api/easy_plot_beamline.html"><span class="doc">Package API</span></a> for the full set of
+parameters and methods.</p>
 </section>
 </section>
 
@@ -196,7 +301,7 @@ pytest
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2026, The Trustees of Columbia University in the City of New York.</p>
+    <p>&#169; Copyright 2026, Caden.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

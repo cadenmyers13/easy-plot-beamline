@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>easy-plot-beamline package &mdash; easy-plot-beamline 0.2.0 documentation</title>
+  <title>easy-plot-beamline package &mdash; easy-plot-beamline 0.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=95e61db4"></script>
+      <script src="../_static/documentation_options.js?v=3ca669d2"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="easy_plot_beamline.example_package package" href="easy_plot_beamline.example_package.html" />
+    <link rel="next" title="Release notes" href="../release.html" />
     <link rel="prev" title="Getting started" href="../getting-started.html" /> 
 </head>
 
@@ -48,12 +48,24 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Package API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="easy_plot_beamline.example_package.html">easy_plot_beamline.example_package package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">easy_plot_beamline.plotting module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter"><code class="docutils literal notranslate"><span class="pre">Plotter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter.load_data"><code class="docutils literal notranslate"><span class="pre">Plotter.load_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter.plot_diff"><code class="docutils literal notranslate"><span class="pre">Plotter.plot_diff()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter.plot_diff_matrix"><code class="docutils literal notranslate"><span class="pre">Plotter.plot_diff_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter.plot_overlaid"><code class="docutils literal notranslate"><span class="pre">Plotter.plot_overlaid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#easy_plot_beamline.plotting.Plotter.plot_waterfall"><code class="docutils literal notranslate"><span class="pre">Plotter.plot_waterfall()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module">easy_plot_beamline.example_submodule module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cli">easy_plot_beamline.cli module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#easy_plot_beamline.cli.collect_files"><code class="docutils literal notranslate"><span class="pre">collect_files()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#easy_plot_beamline.cli.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#easy_plot_beamline.cli.parse_scale_list"><code class="docutils literal notranslate"><span class="pre">parse_scale_list()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release notes</a></li>
@@ -87,23 +99,160 @@
   <section id="title">
 <h1>easy-plot-beamline package<a class="headerlink" href="#title" title="Link to this heading"></a></h1>
 <p id="module-easy_plot_beamline">Easily plot and visualize two-column data on-the-fly.</p>
-<section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="easy_plot_beamline.example_package.html">easy_plot_beamline.example_package package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="easy_plot_beamline.example_package.html#foo">easy_plot_beamline.example_package.foo module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="easy_plot_beamline.example_package.html#bar">easy_plot_beamline.example_package.bar module</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module">
-<h2>easy_plot_beamline.example_submodule module<a class="headerlink" href="#module" title="Link to this heading"></a></h2>
+<section id="plotting">
+<h2>easy_plot_beamline.plotting module<a class="headerlink" href="#plotting" title="Link to this heading"></a></h2>
+<dl class="py class" id="module-easy_plot_beamline.plotting">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">easy_plot_beamline.plotting.</span></span><span class="sig-name descname"><span class="pre">Plotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Load two-column datasets and render them with matplotlib.</p>
+<p>Handles data loading, scaling, plotting styles, legend
+placement, and x-limits shared across all plot types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>legend_on</strong> (<em>bool</em>) – Whether to draw a legend on the produced plots.</p></li>
+<li><p><strong>xmin</strong> (<em>float</em><em> or </em><em>None</em>) – The lower x-axis limit, or None to leave it unset.</p></li>
+<li><p><strong>xmax</strong> (<em>float</em><em> or </em><em>None</em>) – The upper x-axis limit, or None to leave it unset.</p></li>
+<li><p><strong>output</strong> (<em>pathlib.Path</em><em> or </em><em>None</em>) – The path to save the figure to. When None, the plot is
+shown interactively instead.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em> or </em><em>None</em>) – The x-axis label, or None to leave the axis unlabeled.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em> or </em><em>None</em>) – The y-axis label, or None to leave the axis unlabeled.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter.load_data" title="Link to this definition"></a></dt>
+<dd><p>Load a two-column dataset from a file.</p>
+<p>Try <cite>diffpy.utils.parsers.loaddata.loadData</cite> first, then
+fall back to <cite>numpy.loadtxt</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>pathlib.Path</em>) – The path to the data file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The (x, y) arrays, or None if the file could not be
+parsed as two-column data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple of numpy.ndarray or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter.plot_diff">
+<span class="sig-name descname"><span class="pre">plot_diff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter.plot_diff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter.plot_diff" title="Link to this definition"></a></dt>
+<dd><p>Plot two datasets along with their interpolated difference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> (<em>list</em><em> of </em><em>pathlib.Path</em>) – Exactly two data files to compare.</p></li>
+<li><p><strong>offset</strong> (<em>float</em>) – The vertical offset applied to the difference curve.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter.plot_diff_matrix">
+<span class="sig-name descname"><span class="pre">plot_diff_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter.plot_diff_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter.plot_diff_matrix" title="Link to this definition"></a></dt>
+<dd><p>Plot the pairwise differences between every pair of datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> (<em>list</em><em> of </em><em>pathlib.Path</em>) – The data files to compare pairwise.</p></li>
+<li><p><strong>yspace</strong> (<em>float</em>) – The vertical spacing applied between successive
+difference curves.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter.plot_overlaid">
+<span class="sig-name descname"><span class="pre">plot_overlaid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter.plot_overlaid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter.plot_overlaid" title="Link to this definition"></a></dt>
+<dd><p>Plot multiple datasets overlaid on the same axes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>files</strong> (<em>list</em><em> of </em><em>pathlib.Path</em>) – The data files to plot.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="easy_plot_beamline.plotting.Plotter.plot_waterfall">
+<span class="sig-name descname"><span class="pre">plot_waterfall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yspace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scales</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/plotting.html#Plotter.plot_waterfall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.plotting.Plotter.plot_waterfall" title="Link to this definition"></a></dt>
+<dd><p>Plot datasets stacked vertically with optional scaling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> (<em>list</em><em> of </em><em>pathlib.Path</em>) – The data files to plot.</p></li>
+<li><p><strong>yspace</strong> (<em>float</em>) – The vertical spacing applied between successive datasets.</p></li>
+<li><p><strong>scales</strong> (<em>list</em><em> of </em><em>float</em><em> or </em><em>None</em>) – The explicit per-file scale factors. Defaults to 1.0 for
+every file.</p></li>
+<li><p><strong>scale_to</strong> (<em>pathlib.Path</em><em> or </em><em>None</em>) – A reference file to scale all datasets against, chosen
+by matching filename against <cite>files</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cli">
+<h2>easy_plot_beamline.cli module<a class="headerlink" href="#cli" title="Link to this heading"></a></h2>
+<dl class="py function" id="module-easy_plot_beamline.cli">
+<dt class="sig sig-object py" id="easy_plot_beamline.cli.collect_files">
+<span class="sig-prename descclassname"><span class="pre">easy_plot_beamline.cli.</span></span><span class="sig-name descname"><span class="pre">collect_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/cli.html#collect_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.cli.collect_files" title="Link to this definition"></a></dt>
+<dd><p>Collect data files from a mix of file and directory paths.</p>
+<p>Directories are searched flat (non-recursively). Any file
+extension is accepted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>paths</strong> (<em>list</em><em> of </em><em>str</em>) – The file or directory paths given on the command line.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The files found, in sorted order within each directory.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of pathlib.Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easy_plot_beamline.cli.main">
+<span class="sig-prename descclassname"><span class="pre">easy_plot_beamline.cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.cli.main" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="easy_plot_beamline.cli.parse_scale_list">
+<span class="sig-prename descclassname"><span class="pre">easy_plot_beamline.cli.</span></span><span class="sig-name descname"><span class="pre">parse_scale_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfiles</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/easy_plot_beamline/cli.html#parse_scale_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#easy_plot_beamline.cli.parse_scale_list" title="Link to this definition"></a></dt>
+<dd><p>Parse a comma-separated <cite>–scale</cite> argument into scale factors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale_str</strong> (<em>str</em><em> or </em><em>None</em>) – The raw <cite>–scale</cite> value, e.g. “4,1,2”. None returns a
+list of 1.0 scale factors.</p></li>
+<li><p><strong>nfiles</strong> (<em>int</em>) – The number of files being plotted, used to validate the
+count of scale factors provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The scale factor to apply to each file, in file order.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of float</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -112,13 +261,13 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../getting-started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="easy_plot_beamline.example_package.html" class="btn btn-neutral float-right" title="easy_plot_beamline.example_package package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../release.html" class="btn btn-neutral float-right" title="Release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2026, The Trustees of Columbia University in the City of New York.</p>
+    <p>&#169; Copyright 2026, Caden.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

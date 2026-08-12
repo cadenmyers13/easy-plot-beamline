@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ##############################################################################
 #
-# (c) 2025 The Trustees of Columbia University in the City of New York.
+# (c) 2026 Caden.
 # All rights reserved.
 #
 # File coded by: Caden Myers.

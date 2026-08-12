@@ -21,7 +21,7 @@ To get started, please visit the :ref:`Getting started <getting-started>` page.
 Authors
 =======
 
-``easy-plot-beamline`` is developed by Caden Myers. The maintainer for this project is Caden Myers. For a detailed list of contributors see
+``easy-plot-beamline`` is developed by Caden Myers. This project is maintained by Caden Myers. For a detailed list of contributors see
 https://github.com/cadenmyers13/easy-plot-beamline/graphs/contributors.
 
 ============

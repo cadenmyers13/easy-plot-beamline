@@ -4,6 +4,18 @@ Release notes
 
 .. current developments
 
+0.2.1
+=====
+
+**Added:**
+
+* Add documentation for API docs.
+
+**Changed:**
+
+* Update package to latest cikit-package standard.
+
+
 0.2.0
 =====
 

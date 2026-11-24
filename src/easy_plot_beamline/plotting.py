@@ -29,6 +29,10 @@ class Plotter:
         The x-axis label, or None to leave the axis unlabeled.
     ylabel : str or None
         The y-axis label, or None to leave the axis unlabeled.
+    logx : bool
+        Whether to use a logarithmic x-axis.
+    logy : bool
+        Whether to use a logarithmic y-axis.
     """
 
     def __init__(
@@ -39,6 +43,8 @@ class Plotter:
         output=None,
         xlabel=None,
         ylabel=None,
+        logx=False,
+        logy=False,
     ):
         self.legend_on = legend_on
         self.xmin = xmin
@@ -46,6 +52,8 @@ class Plotter:
         self.output = output
         self.xlabel = xlabel
         self.ylabel = ylabel
+        self.logx = logx
+        self.logy = logy
 
     def load_data(self, filepath: Path):
         """Load a two-column dataset from a file.
@@ -87,6 +95,10 @@ class Plotter:
             plt.xlabel(self.xlabel)
         if self.ylabel is not None:
             plt.ylabel(self.ylabel)
+        if self.logx:
+            plt.xscale("log")
+        if self.logy:
+            plt.yscale("log")
         plt.grid(True)
 
     def _new_figure(self):

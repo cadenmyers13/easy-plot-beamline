@@ -98,6 +98,30 @@ class TestSetPlotParameters:
         assert actual_ylabel == expected_ylabel
         plt.close()
 
+    @pytest.mark.parametrize(
+        "logx, logy, expected_xscale, expected_yscale",
+        [
+            # Test that axis scales follow the logx and logy flags
+            # C1: neither flag set, expect both axes linear
+            (False, False, "linear", "linear"),
+            # C2: logx set, expect log x-axis and linear y-axis
+            (True, False, "log", "linear"),
+            # C3: logy set, expect linear x-axis and log y-axis
+            (False, True, "linear", "log"),
+            # C4: both flags set, expect both axes log
+            (True, True, "log", "log"),
+        ],
+    )
+    def test_axis_scales(self, logx, logy, expected_xscale, expected_yscale):
+        plt.figure()
+        Plotter(logx=logx, logy=logy)._set_plot_parameters()
+        ax = plt.gca()
+        actual_xscale = ax.get_xscale()
+        actual_yscale = ax.get_yscale()
+        assert actual_xscale == expected_xscale
+        assert actual_yscale == expected_yscale
+        plt.close()
+
 
 class TestPlotOverlaid:
     # C1: all files readable, expect a saved figure

@@ -184,6 +184,10 @@ The following options are accepted by all four subcommands.
      - Set the x-axis label. Axes are unlabeled by default.
    * - ``--ylabel``
      - Set the y-axis label. Axes are unlabeled by default.
+   * - ``--logx``
+     - Use a logarithmic scale on the x-axis.
+   * - ``--logy``
+     - Use a logarithmic scale on the y-axis.
    * - ``--legend-off``
      - Do not draw a legend.
    * - ``-o``, ``--output``

@@ -3,6 +3,7 @@
 import pytest
 
 from easy_plot_beamline.cli import collect_files, main, parse_scale_list
+from easy_plot_beamline.plotting import Plotter
 
 
 class TestCollectFiles:
@@ -88,6 +89,49 @@ class TestMainDispatch:
         main()
         actual_output_exists = output.exists()
         assert actual_output_exists
+
+    @pytest.mark.parametrize(
+        "log_flags, expected_logx, expected_logy",
+        [
+            # Test that --logx and --logy are passed through to Plotter
+            # C1: no log flags, expect both disabled
+            ([], False, False),
+            # C2: --logx only, expect logx enabled
+            (["--logx"], True, False),
+            # C3: --logy only, expect logy enabled
+            (["--logy"], False, True),
+            # C4: both flags, expect both enabled
+            (["--logx", "--logy"], True, True),
+        ],
+    )
+    def test_log_flags_reach_plotter(
+        self,
+        datafiles,
+        tmp_path,
+        monkeypatch,
+        log_flags,
+        expected_logx,
+        expected_logy,
+    ):
+        created_plotters = []
+        original_init = Plotter.__init__
+
+        def record_init(self, **kwargs):
+            original_init(self, **kwargs)
+            created_plotters.append(self)
+
+        monkeypatch.setattr(Plotter, "__init__", record_init)
+        output = tmp_path / "out.png"
+        monkeypatch.setattr(
+            "sys.argv",
+            ["easyplot", "plot", str(datafiles["a"]), "-o", str(output)]
+            + log_flags,
+        )
+        main()
+        actual_logx = created_plotters[0].logx
+        actual_logy = created_plotters[0].logy
+        assert actual_logx == expected_logx
+        assert actual_logy == expected_logy
 
     def test_no_valid_files_prints_message(
         self, tmp_path, monkeypatch, capsys

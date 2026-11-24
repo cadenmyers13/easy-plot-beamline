@@ -74,6 +74,12 @@ def _build_common_parser():
     common.add_argument("--xlabel", help="X-axis label (default: no label)")
     common.add_argument("--ylabel", help="Y-axis label (default: no label)")
     common.add_argument(
+        "--logx", action="store_true", help="Use a log scale on the x-axis"
+    )
+    common.add_argument(
+        "--logy", action="store_true", help="Use a log scale on the y-axis"
+    )
+    common.add_argument(
         "-o",
         "--output",
         type=Path,
@@ -168,6 +174,8 @@ def main():
         output=args.output,
         xlabel=args.xlabel,
         ylabel=args.ylabel,
+        logx=args.logx,
+        logy=args.logy,
     )
 
     if args.command == "plot":
